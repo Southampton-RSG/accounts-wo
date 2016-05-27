@@ -27,7 +27,7 @@ Template.registerHelper('observatories', function(){
 //Dropdown events
 Template.woatSocial.events({
 
-  "change #observatory-select": function (event, template) {
+  /*"change #observatory-select": function (event, template) {
         var observatory = $(event.currentTarget).val();
         console.log("observatory : " + observatory);
         // additional code to do what you want with the observatory
@@ -39,7 +39,7 @@ Template.woatSocial.events({
       evt.stopPropagation(); //Stop the full-page click handler from firing
       Session.set('woatSocial', this.name);
 
-   },
+   },*/
 
    'click .dropdown-menu li a': function(evt){
 
@@ -49,6 +49,7 @@ Template.woatSocial.events({
 
    'change .dropdown-menu li a': function(event, t){
 
+    //Action to be performed when one of the web observatories domain OIDC provider in the list is clicked.
 
    } 
 
