@@ -1,0 +1,26 @@
+<template name="woatSocial">
+ 
+{{#if equals name "wooidc"}} 
+  <div class="dropdown">
+   <button class="btn at-social-btn {{disabled}} dropdown-toggle" id="at-{{name}}" name={{name}} data-toggle="dropdown" onclick="" aria-haspopup="true" aria-expanded="false">
+          <i class="{{iconClass}}"></i>SIGN IN WITH WOs &nbsp; <span class="caret"></span>
+          <span class="sr-only">Toggle Dropdown</span>
+    </button>
+
+    <ul id="obsdropdown" class="dropdown-menu pull-right" aria-labelledby="dropdownMenu1">
+       <li class="suwo" name="wooidc" id="at-wooidc"><a href="#">Southampton Web Observatory</a></li>
+       <li class="unisa" name="unisa" id="at-unisa"><a href="#">UNISA</a></li>
+       <li class="iiitb" name="iiitb" id="at-iiitb"><a href="#">IIIT-Bangalore</a></li>
+       <li class="kaist" name="kaist" id="at-kaist"><a href="#">KAIST - Korea</a></li>
+    </ul>
+
+    <!--/div--> <!-- end of observatory dropdown class -->
+  </div>   <!-- end of dropdown class -->
+{{else}}
+   <div>
+     <button class="btn at-social-btn {{disabled}}" id="at-{{name}}" name="{{name}}">
+          <i class="{{iconClass}}"></i> {{buttonText}}
+    </button>
+   </div>
+   {{/if}}
+</template>

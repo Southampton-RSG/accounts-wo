@@ -1,31 +1,23 @@
 <template name="woatSocial">
- 
-{{#if equals name "wooidc"}} 
-<div class="dropdown">
-   <button class="btn at-social-btn {{disabled}} dropdown-toggle" id="at-{{name}}" name={{name}} data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <i class="{{iconClass}}"></i>SIGN IN WITH WOs &nbsp; <span class="caret"></span>
-          <span class="sr-only">Toggle Dropdown</span>
-    </button>
-    <ul class="dropdown-menu pull-right" aria-labelledby="dropdownMenu1">
-    <li><a href="#">Southampton Web Observatory</a></li>
-    <li><a href="#">NUS Singapore NeXT Observatory</a></li>
-    <li><a href="#">UNISA</a></li>
-    <li><a href="#">COSMOS - Cardiff</a></li>
-    <li><a href="#">RPI Web Observatory</a></li>
-    <li><a href="#">Indiana University Truthy</a></li>
-    <li><a href="#">SONIC - Northwestern</a></li>
-    <li><a href="#">UI - Indonesia</a></li>
-    <li><a href="#">IIIT-Bangalore</a></li>
-    <li><a href="#">KAIST - Korea</a></li>
-    <li><a href="#">Stanford - SNAP</a></li>
-    <li><a href="#">The Koblenz Network Collection</a></li>
-  </ul>
-  </div>
+
+{{#if wooidcconfig}} 
+
+      <div class="dropdown">
+         <button class="btn at-social-btn {{disabled}} dropdown-toggle" id="at-{{name}}" name={{name}} data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+             <i class="{{iconClass}}"></i>{{buttonText}} &nbsp; <span class="caret"></span>
+             <span class="sr-only">Toggle Dropdown</span>
+         </button>
+      </div>
+
 {{else}}
-   <div>
-     <button class="btn at-social-btn {{disabled}}" id="at-{{name}}" name="{{name}}">
-          <i class="{{iconClass}}"></i> {{buttonText}}
-    </button>
-   </div>
-   {{/if}}
+
+      <div>
+        <button class="btn at-social-btn {{disabled}}" id="at-{{name}}" name="{{name}}">
+            <i class="{{iconClass}}"></i> {{buttonText}}
+        </button>
+      </div>
+
+{{/if}}
+
+
 </template>
