@@ -34,16 +34,41 @@ Template.registerHelper('wooidcconfig', function() {
      return true;
   else
      return false;
+});
+
+var nodeArray = [];
+
+//Global helper for populating WOOIDC dropdown menu with configured domains.
+Template.registerHelper('woNodes', function() {
+
+    var schemaloginservice = ServiceConfiguration.configurations.findOne({ service: 'wooidc' });
+    
+    var configArray = schemaloginservice.config;
+
+    /*return configArray.forEach(function (doc) {
+       console.log(doc.domain);
+       nodeArray.push(doc.domain);
+       console.log(nodeArray);
+       return nodeArray;
+    });*/
+
+    console.log(configArray);
+    return configArray;
+
 }); 
 
 //Meteor woatSocial template events
 Template.woatSocial.events({
 
+  /* 'click .dropdown-menu li a': function(evt){
+      evt.preventDefault();
+   },
+
    'click li#at-wooidc.suwo':function(event, t){
       
         event.preventDefault();
         console.log($(event.target).text());
-    }
+    }*/
           
 
 });

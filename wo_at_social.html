@@ -1,13 +1,23 @@
+<!-- Main Web observatory login template. -->
+
 <template name="woatSocial">
 
 {{#if wooidcconfig}} 
-
+  
       <div class="dropdown">
-         <button class="btn at-social-btn {{disabled}} dropdown-toggle" id="at-{{name}}" name={{name}} data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+         <button class="btn at-social-btn {{disabled}} dropdown-toggle" id="at-{{name}}" name={{name}} data-toggle="dropdown" type="button" aria-haspopup="true" aria-expanded="true">
              <i class="{{iconClass}}"></i>{{buttonText}} &nbsp; <span class="caret"></span>
              <span class="sr-only">Toggle Dropdown</span>
          </button>
+
+      <div class="dropdown-menu pull-right">
+         <ul role="menu" aria-labelledby="dlabel">
+           {{> woNodeItems}}    
+         </ul>
       </div>
+
+      </div>
+
 
 {{else}}
 
@@ -21,3 +31,15 @@
 
 
 </template>
+
+<!--Template for dynamically populating configured web observatory nodes as dropdown menu items. -->
+
+<template name="woNodeItems">
+
+  {{#each node in woNodes}}
+     <li role="menuItem"><a href="#">{{node.domain}}</a></li>
+  {{/each}}
+
+</template>
+
+
