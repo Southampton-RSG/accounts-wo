@@ -58,17 +58,18 @@ Template.registerHelper('woNodes', function() {
 }); 
 
 //Meteor woatSocial template events
-Template.woatSocial.events({
 
-  /* 'click .dropdown-menu li a': function(evt){
-      evt.preventDefault();
-   },
+  Template.body.events({
+   
+    'click li':function(event, Template) {
 
-   'click li#at-wooidc.suwo':function(event, t){
-      
         event.preventDefault();
-        console.log($(event.target).text());
-    }*/
-          
+
+        //Get the value of selected domain from dropdown menu item
+        var selected_domain = $(".domain").text();
+        console.log("Configured WO domain i.e. selected: " + selected_domain);
+
+     }
 
 });
+

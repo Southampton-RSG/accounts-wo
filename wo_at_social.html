@@ -11,8 +11,11 @@
          </button>
 
       <div class="dropdown-menu pull-right">
-         <ul role="menu" aria-labelledby="dlabel">
-           {{> woNodeItems}}    
+         <ul class="wodomain" id="nodeselector" role="menu" aria-labelledby="dlabel">
+           <!--{{> woNodeItems}}-->
+           {{#each node in woNodes}}
+               <li role="menuItem" name="domain" class="domain"><a href="#">{{node.domain}}</a></li>
+           {{/each}}    
          </ul>
       </div>
 
