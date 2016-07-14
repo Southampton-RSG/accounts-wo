@@ -13,24 +13,21 @@ Template.registerHelper('morethanone', function(n, one) {
   return n > one;
 });
 
-//Global helper to be used for finding the number of WO nodes configured.
-Template.registerHelper('configLength', function() {
-  
-  var schemaloginservice = ServiceConfiguration.configurations.findOne({ service: 'wooidc' });
-
-  var config_length = schemaloginservice.config.length;
-  return config_length;
-
-});
 
 //Global helper to be used to compare service name and number of configured nodes for web observatory
 Template.registerHelper('wooidcconfig', function() {
 
-  var schemaloginservice = ServiceConfiguration.configurations.findOne({ service: 'wooidc' });
- 
-  var config_length = schemaloginservice.config.length;
+  //WOOIDC login service schema.
 
-  if ( (this._id === "wooidc")&&(config_length > 1) )
+  var schemaloginservice =  ServiceConfiguration.configurations.findOne({ service: 'wooidc' });
+
+
+  //Finding the number of WO nodes configured.
+
+  var configLength = schemaloginservice.config.length;
+
+
+  if ( (this._id === "wooidc")&&(configLength > 1) )
      return true;
   else
      return false;
@@ -40,9 +37,11 @@ var nodeArray = [];
 
 //Global helper for populating WOOIDC dropdown menu with configured domains.
 Template.registerHelper('woNodes', function() {
-
-    var schemaloginservice = ServiceConfiguration.configurations.findOne({ service: 'wooidc' });
     
+   //WOOIDC login service schema.
+
+    var schemaloginservice =  ServiceConfiguration.configurations.findOne({ service: 'wooidc' });
+
     var configArray = schemaloginservice.config;
 
     /*return configArray.forEach(function (doc) {
@@ -61,14 +60,34 @@ Template.registerHelper('woNodes', function() {
 
   Template.body.events({
    
+     //WOOIDC button click event.
+    'click button': function(event, t) {
+
+       event.preventDefault();
+       console.log("Main dropdown button clicked.")
+
+
+     },
+
+     //WOOIDC configured domains click event.
+     
     'click li':function(event, Template) {
 
         event.preventDefault();
 
-        //Get the value of selected domain from dropdown menu item
-        var selected_domain = $(".domain").text();
-        console.log("Configured WO domain i.e. selected: " + selected_domain);
+        //Get the values of all domains configured and are present in dropdown list of WOOIDC button.
+        var configured_domains = $(".domain").text();
+        console.log("Configured WO domains: " + configured_domains);
 
+        $(event.target).html();
+        
+        //InnerHTML for selected domain from dropdown list
+        console.log(event.currentTarget.innerHTML);
+
+        //InnerHTML without tags just the selected domain value.
+        console.log(event.currentTarget.innerText);
+        console.log(event.currentTarget.textContent);
+        
      }
 
 });
