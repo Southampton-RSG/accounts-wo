@@ -27,12 +27,21 @@ Template.registerHelper('wooidcconfig', function() {
   var configLength = schemaloginservice.config.length;
 
 
-  if ( (this._id === "wooidc")&&(configLength > 1) )
-     return true;
+  if ( (this._id === "wooidc") ){
+     if ( (configLength > 1) )
+     {
+        //Removing all the event handlers if the Oauth service is Web observatory and its already configured with more than one WO nodes.
+        Template.atSocial.clearEventMaps();
+        return true;
+     }
+     else
+        return false;
+  }
   else
      return false;
 });
 
+//All the configured WO nodes are stored in this array with their respective clientIDs and secret keys for application.
 var nodeArray = [];
 
 //Global helper for populating WOOIDC dropdown menu with configured domains.
@@ -59,13 +68,15 @@ Template.registerHelper('woNodes', function() {
 //Meteor woatSocial template events
 
   Template.body.events({
-   
+
      //WOOIDC button click event.
     'click button': function(event, t) {
 
-       event.preventDefault();
-       console.log("Main dropdown button clicked.")
-
+       if ( this.id === "at-wooidc"){
+             event.preventDefault();
+             console.log("WOOIDC button clicked.")
+       }
+       
 
      },
 

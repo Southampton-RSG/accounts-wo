@@ -1,7 +1,8 @@
 Accounts.oauth.registerService('wooidc');
 
 if (Meteor.isClient) {
-    Meteor.loginWithWooidc = function (options, callback) {
+
+    Meteor.loginWithWooidc = function (options,callback) {
         // support a callback without options
         if (! callback && typeof options === 'function') {
             callback = options;
@@ -9,7 +10,7 @@ if (Meteor.isClient) {
         }
 
         var credentialRequestCompleteCallback = Accounts.oauth.credentialRequestCompleteHandler(callback);
-        Wooidc.requestCredential(options, credentialRequestCompleteCallback);
+        Wooidc.requestCredential(options, wonode, credentialRequestCompleteCallback);
     };
 }
 else {
