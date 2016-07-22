@@ -14,7 +14,7 @@
          <ul class="wodomain" id="nodeselector" role="menu" aria-labelledby="dlabel">
            <!--{{> woNodeItems}}-->
            {{#each node in woNodes}}
-               <li role="menuItem" name="domain" class="domain" value={{node.domain}}><a href="#">{{node.domain}}</a></li>
+               <li id="{{node.domain}}" role="menuItem" name="domain" class="domain" value={{node.domain}}><a href="#">{{node.domain}}</a></li>
            {{/each}}    
          </ul>
       </div>

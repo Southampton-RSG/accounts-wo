@@ -88,18 +88,75 @@ Template.registerHelper('woNodes', function() {
 
         //Get the values of all domains configured and are present in dropdown list of WOOIDC button.
         var configured_domains = $(".domain").text();
-        console.log("Configured WO domains: " + configured_domains);
+        console.log("Configured WO domains: " + configured_domains); //Command for testing whether the configured domains are updated in the dropdown list
 
         $(event.target).html();
         
+        console.log(this.id);        
+        console.log(event.target);
+
         //InnerHTML for selected domain from dropdown list
-        console.log(event.currentTarget.innerHTML);
+        //console.log(event.currentTarget.innerHTML); //Command for testing
 
         //InnerHTML without tags just the selected domain value.
-        console.log(event.currentTarget.innerText);
+        //console.log(event.currentTarget.innerText); //Command for testing
         console.log(event.currentTarget.textContent);
+        var wonode = event.currentTarget.textContent;
+
+        //Main action once the configured domain is clicked.
+        event.currentTarget.blur();
+        if (AccountsTemplates.disabled())
+            return;
+
+         var serviceName = "wooidc";            
+         var methodName;
+         //var parentData = Template.parentData();
+         //var state = (parentData && parentData.state) || AccountsTemplates.getState();
+         var state = AccountsTemplates.getState();
+
+         //Debug for template state
+         console.log(state);
+
+         //capitalize function
+         var capitalize = function(str) {
+             str = str == null ? '' : String(str);
+             return str.charAt(0).toUpperCase() + str.slice(1);
+         }; 
+
+         if (serviceName === 'meteor-developer')
+                methodName = "loginWithMeteorDeveloperAccount";
+         else
+                methodName = "loginWith" + capitalize(serviceName);
+
+         //Debug for methodName
+         console.log(methodName);            
+
+         var loginWithService = Meteor[methodName];
+         options = {
+                loginStyle: AccountsTemplates.options.socialLoginStyle,
+            };
+            if (Accounts.ui) {
+                if (Accounts.ui._options.requestPermissions[serviceName]) {
+                    options.requestPermissions = Accounts.ui._options.requestPermissions[serviceName];
+                }
+                if (Accounts.ui._options.requestOfflineToken[serviceName]) {
+                    options.requestOfflineToken = Accounts.ui._options.requestOfflineToken[serviceName];
+                }
+            }
+            loginWithService(options, wonode, function(err) {
+                AccountsTemplates.setDisabled(false);
+                if (err && err instanceof Accounts.LoginCancelledError) {
+                    // do nothing
+                }
+                else if (err && err instanceof ServiceConfiguration.ConfigError) {
+                    if (Accounts._loginButtonsSession)
+                        return Accounts._loginButtonsSession.configureService(serviceName);
+                }
+                else
+                    AccountsTemplates.submitCallback(err, state);
+            });
         
-     }
+     },
 
 });
 

@@ -13,10 +13,10 @@ Package.describe({
 Package.onUse(function(api) {
 
   api.use(['underscore', 'random','templating'],'client');
-  api.use(['accounts-base','aldeed:template-extension'], ['client', 'server']);
+  api.use(['accounts-base','aldeed:template-extension','useraccounts:core','useraccounts:iron-routing'], ['client', 'server']);
 
   //Export Accounts(etc) to packages using this one.
-  api.imply(['accounts-base','aldeed:template-extension@4.0.0'], ['client', 'server']);
+  api.imply(['accounts-base','aldeed:template-extension@4.0.0','useraccounts:core','useraccounts:iron-routing'], ['client', 'server']);
 
   //Allow us to call Accounts.oauth.serviceNames, if there are any OAuth
   // services.
